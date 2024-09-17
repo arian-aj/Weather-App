@@ -1,16 +1,36 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { WeatherContext } from './WeatherContext.js'
-
+import Layout from './components/Layout.jsx'
+import { Routes, Route } from 'react-router-dom'
+import Temperature from './components/Temperature.jsx'
+import WindSpeed from './components/WindSpeed.jsx'
+import Humidity from './components/Humidity.jsx'
+import NotFound from './NotFound.jsx'
 function App() {
   const apiKey = "6c58d02e23adc87f7d24c7835e5713f6"
   const [currentCity, setCurrentCity] = useState("")
   const [location, setLocation] = useState({latitude: null, longitude: null})
   const [weatherData, setWeatherData] = useState({
-    cityName: ""
+    main: {
+      humidity: "",
+      temp: ""
+    },
+    name: "",
+    weather: [{
+      description: "",
+      icon: "",
+    }],
+    wind: {
+      speed: "",
+    }
   })
   const [searchedCity, setSearchedCity] = useState("");
-  
+ 
+ 
+
+
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -58,21 +78,26 @@ function App() {
       return resp.json()
     })
     .then(data => {
-      console.log(data)
+      console.log("fetched data:", data)
+      setWeatherData(data)
     })
     .catch(err => console.error("Error fetching", err))
   }, [currentCity])
 
 
   return (
-    <WeatherContext.Provider value={[weatherData, setWeatherData]}>
-      <form action="submit" onSubmit={(e) => {
-        e.preventDefault();
-        setCurrentCity(searchedCity)
-      }}>
-        <input type="text" name="cityname" id="cityname" value={searchedCity} onChange={(e) => setSearchedCity(e.target.value)}/>
-        <button>Search</button>
-      </form>
+    <WeatherContext.Provider value={{weatherData, setWeatherData, searchedCity, setCurrentCity, setSearchedCity}}>
+      
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Temperature />} />
+          <Route path='windspeed' element={<WindSpeed />} />
+          <Route path='humidity' element={<Humidity />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+      
+
     </WeatherContext.Provider>
   )
 }
