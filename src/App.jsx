@@ -26,8 +26,10 @@ function App() {
     }
   })
   const [searchedCity, setSearchedCity] = useState("");
- 
- 
+  const [bodyClass, setBodyClass] = useState("");
+
+
+
 
 
 
@@ -84,20 +86,38 @@ function App() {
     .catch(err => console.error("Error fetching", err))
   }, [currentCity])
 
+  
+    
+  useEffect(() => {
+      document.body.className = bodyClass;
+  }, [bodyClass]);
 
+  function toggleBackground() {
+      setBodyClass(prevClass => prevClass === '' ? 'dark' : '');
+  }
+  
+
+  
   return (
-    <WeatherContext.Provider value={{weatherData, setWeatherData, searchedCity, setCurrentCity, setSearchedCity}}>
-      
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<Temperature />} />
-          <Route path='windspeed' element={<WindSpeed />} />
-          <Route path='humidity' element={<Humidity />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-      
-
+    <WeatherContext.Provider value={{ weatherData, setWeatherData, searchedCity, setCurrentCity, setSearchedCity }}>
+      <div className="relative min-h-screen">
+      <button
+          className={`absolute top-4 right-4 w-20 h-10 bg-${bodyClass === "" ? "red-500 text-white" : "blue-500 text-black"} rounded-lg text-xs p-1`}
+          onClick={toggleBackground}
+        >
+          {bodyClass === "" ? "Dark Mode" : "Light Mode"}
+        </button>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <Routes>
+            <Route path='/' element={<Layout />}>
+              <Route index element={<Temperature />} />
+              <Route path='windspeed' element={<WindSpeed />} />
+              <Route path='humidity' element={<Humidity />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </div>
+      </div>
     </WeatherContext.Provider>
   )
 }

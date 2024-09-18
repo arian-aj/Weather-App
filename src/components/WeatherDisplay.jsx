@@ -14,10 +14,10 @@ export default function WeatherDisplay() {
     console.log("img Address:", imgAddress);
     
     return(
-        <>
+        <div className="flex flex-col">
             <h2>{data.weatherData.name}</h2>
             <img src={imgAddress} alt="weather-icon" />    
             <p>{data.weatherData.weather[0].description}</p>
-        </>
+        </div>
     )
 }

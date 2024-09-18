@@ -8,7 +8,7 @@ export default function WindSpeed() {
 
     return (
         <div>
-            <h2>Current Windspeed</h2>
+            <h2>Windspeed</h2>
             <h2>{data.weatherData.wind.speed} m/s</h2>
       </div>
     )
