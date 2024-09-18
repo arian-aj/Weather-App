@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+// import './App.css'
 import { WeatherContext } from './WeatherContext.js'
 import Layout from './components/Layout.jsx'
 import { Routes, Route } from 'react-router-dom'
@@ -27,7 +27,7 @@ function App() {
   })
   const [searchedCity, setSearchedCity] = useState("");
   const [bodyClass, setBodyClass] = useState("");
-
+  const [cityFound, setCityFound] = useState(true)
 
 
 
@@ -75,8 +75,10 @@ function App() {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}&units=metric`)
     .then(resp => {
       if (!resp.ok) {
+        setCityFound(false)
         throw new Error("Error fetching data")
       }
+      setCityFound(true)
       return resp.json()
     })
     .then(data => {
@@ -99,10 +101,13 @@ function App() {
 
   
   return (
-    <WeatherContext.Provider value={{ weatherData, setWeatherData, searchedCity, setCurrentCity, setSearchedCity }}>
-      <div className="relative min-h-screen">
-      <button
-          className={`absolute top-4 right-4 w-20 h-10 bg-${bodyClass === "" ? "red-500 text-white" : "blue-500 text-black"} rounded-lg text-xs p-1`}
+    <WeatherContext.Provider value={{cityFound, weatherData, setWeatherData, searchedCity, setCurrentCity, setSearchedCity, bodyClass, setBodyClass }}>
+      <div className='h-screen'>
+        <h1 className="text-4xl font-bold mt-8 mb-4 text-center">
+          Weather App
+        </h1>
+        <button
+          className={`absolute bottom-20 right-4 w-20 h-10 text-white rounded-lg text-xs p-1 ${bodyClass === "" ? "bg-red-500" : "bg-blue-500"}`}
           onClick={toggleBackground}
         >
           {bodyClass === "" ? "Dark Mode" : "Light Mode"}

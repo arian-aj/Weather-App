@@ -1,27 +1,24 @@
 import SearchInput from "./SearchInput.jsx"
-import { useEffect, useState } from "react"
-
+import { useContext } from "react"
+import { WeatherContext } from "../WeatherContext.js"
 import WeatherDisplay from "./WeatherDisplay.jsx"
 import { Outlet } from "react-router-dom"
 import Navbar from "../Navbar.jsx"
 export default function Layout() {
-
+    const data = useContext(WeatherContext)
 
     return (
         <>
-            <header>
-                <h1>Wetter-App</h1>
-
-<SearchInput className="w-2/3" />
-               
-
+            <header className={`p-4 ${data.bodyClass === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'} rounded-t-lg shadow-md`}>
+                <h1>Type the city name you are looking for</h1>
+                <SearchInput />
             </header>
-            <main>
+            <main className="p-4">
                 <Navbar />
                 <WeatherDisplay />
                 <Outlet />
             </main>
-            <footer>
+            <footer className={`p-4 text-center ${data.bodyClass === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'} rounded-b-lg shadow-md`}>
                 Project made by Arian-AJ  &copy; {new Date().getFullYear()}
             </footer>
         </>
