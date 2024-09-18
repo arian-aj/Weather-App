@@ -1,11 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { WeatherContext } from "../WeatherContext.js";
 export default function WeatherDisplay() {
     const data = useContext(WeatherContext)
-    
+    const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
         console.log("Weather data:", data.weatherData);
-      }, [data]);
+        setIsLoaded(true);
+    }, [data]);
     
     
 
@@ -14,10 +15,14 @@ export default function WeatherDisplay() {
     console.log("img Address:", imgAddress);
     
     return(
-        <div className="flex flex-col">
-            <h2>{data.weatherData.name}</h2>
-            <img src={imgAddress} alt="weather-icon" />    
-            <p>{data.weatherData.weather[0].description}</p>
+        <div className="flex flex-col items-center">
+            <h2 className="text-2xl font-bold mb-4">{data.weatherData.name}</h2>
+            <img 
+            src={imgAddress} 
+            alt="weather-icon" 
+            className={`transition-opacity duration-1000 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+            />    
+            <p className="text-lg mt-2">{data.weatherData.weather[0].description}</p>
         </div>
     )
 }

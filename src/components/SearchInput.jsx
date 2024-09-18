@@ -5,7 +5,10 @@ export default function SearchInput() {
     const data = useContext(WeatherContext)
     return(
         <>
-            <form action="submit" onSubmit={(e) => {
+            <form 
+            className="flex flex-row gap-1"
+            action="submit" 
+            onSubmit={(e) => {
                 e.preventDefault();
                 data.setCurrentCity(data.searchedCity)
             }}>
@@ -15,12 +18,12 @@ export default function SearchInput() {
                 id="cityname" 
                 value={data.searchedCity} 
                 onChange={(e) => data.setSearchedCity(e.target.value)} 
-                className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                className="border border-red-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                 
                 />
                 <button
                     type="submit"
-                    className={`p-2 bg-${data.bodyClass === ""? "red" : "blue" }-500 text-white rounded-lg hover:bg-blue-700`}
+                    className={` bg-${data.bodyClass === ""? "red" : "blue" }-500 text-white rounded-lg hover:bg-blue-700`}
                 >
                     Search City
                 </button>

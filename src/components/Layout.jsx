@@ -9,12 +9,13 @@ export default function Layout() {
 
     return (
         <>
-            <header className={`p-4 ${data.bodyClass === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'} rounded-t-lg shadow-md`}>
-                <h1>Type the city name you are looking for</h1>
+            <header className={`p-4 ${data.bodyClass === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'} rounded-t-lg shadow-md flex flex-col gap-2`}>
+                <h1>Type the city you are looking for</h1>
                 <SearchInput />
             </header>
-            <main className="p-4">
+            <main className="p-5">
                 <Navbar />
+                <br />
                 <WeatherDisplay />
                 <Outlet />
             </main>

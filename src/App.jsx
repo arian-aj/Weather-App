@@ -102,16 +102,19 @@ function App() {
   
   return (
     <WeatherContext.Provider value={{cityFound, weatherData, setWeatherData, searchedCity, setCurrentCity, setSearchedCity, bodyClass, setBodyClass }}>
-      <div className='h-screen'>
-        <h1 className="text-4xl font-bold mt-8 mb-4 text-center">
+      <div className={`h-screen flex flex-col items-center justify-center`}>
+        <h1 className={`text-2xl font-bold text-center absolute top-14 center-1 bg-${bodyClass == ""? "red" : "blue"}-500 text-white border-4 border-white rounded-full px-8 py-2`}>
           Weather App
         </h1>
         <button
-          className={`absolute bottom-20 right-4 w-20 h-10 text-white rounded-lg text-xs p-1 ${bodyClass === "" ? "bg-red-500" : "bg-blue-500"}`}
+          className={`absolute top-4 right-4 w-10 h-10 text-white rounded-lg text-xs p-1 ${bodyClass === "" ? "bg-red-500" : "bg-blue-500"}`}
           onClick={toggleBackground}
         >
           {bodyClass === "" ? "Dark Mode" : "Light Mode"}
         </button>
+        <br />
+        <br />
+        <br />
         <div className="flex flex-col items-center justify-center min-h-screen">
           <Routes>
             <Route path='/' element={<Layout />}>
