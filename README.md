@@ -1,8 +1,13 @@
-# React + Vite
+# Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### [Visit the App here](https://weather-app-d9cp.onrender.com)
 
-Currently, two official plugins are available:
+## About the App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Weather App provides you with up-to-date weather information for your current location by using geolocation services. 
+
+- **Current Location Weather**: The app automatically detects your location and displays basic weather details such as temperature, humidity, wind speed, and more.
+  
+- **Search Functionality**: Want to know the weather in another place? Use the search function to check weather information for any location worldwide.
+
+Stay informed about the weather wherever you are with this easy-to-use app!
